@@ -1,0 +1,155 @@
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>FinCRM</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#edf1f2;--cd:#fff;--tx:#101a2b;--mu:#64707f;--ln:#d9e0e3;--ac:#0e5c63;--ok:#2a7d4b;--wa:#a8680f;--er:#b3362e;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f161c;--cd:#18222b;--tx:#e6ebef;--mu:#93a0ad;--ln:#26333e;--ac:#5cc0c8;--ok:#5dbb85;--wa:#e0a84a;--er:#e5736a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f161c;--cd:#18222b;--tx:#e6ebef;--mu:#93a0ad;--ln:#26333e;--ac:#5cc0c8;--ok:#5dbb85;--wa:#e0a84a;--er:#e5736a;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 'IBM Plex Sans',system-ui,sans-serif;font-variant-numeric:tabular-nums}
+h1,h2{margin:0;font-weight:600}h2{font-size:20px}.mu{color:var(--mu)}
+.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+aside{background:var(--ac);color:#fff;padding:18px 12px;display:flex;flex-direction:column;gap:6px}
+.lg{font-size:22px;padding:0 10px 14px}.lg b{font-weight:600;opacity:.7}
+aside button{all:unset;cursor:pointer;padding:9px 10px;border-radius:6px;color:#ffffffcc}
+aside button.on,aside button:hover{background:#ffffff26;color:#fff}
+.us{margin-top:auto;padding:10px;font-size:12px;color:#ffffffcc}.us button{padding:4px 0;text-decoration:underline}
+main{padding:20px 24px;min-width:0}header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:10px}
+.lang button{border:1px solid var(--ln);background:var(--cd);color:var(--tx);padding:5px 10px;cursor:pointer;font:inherit}
+.lang button:first-child{border-radius:6px 0 0 6px}.lang button:last-child{border-radius:0 6px 6px 0}.lang button.on{background:var(--ac);color:var(--cd);border-color:var(--ac)}
+.card{background:var(--cd);border:1px solid var(--ln);border-radius:8px;padding:16px}
+.bh{display:flex;justify-content:space-between;align-items:center;margin:0 0 12px}
+.btn{background:var(--ac);color:var(--cd);border:0;border-radius:6px;padding:8px 14px;font:inherit;font-weight:500;cursor:pointer}
+.btn2{background:none;border:1px solid var(--ln);color:var(--tx);border-radius:6px;padding:8px 14px;font:inherit;cursor:pointer}
+.lk{background:none;border:0;color:var(--ac);cursor:pointer;font:inherit;padding:0 6px 0 0}.lk.d{color:var(--er)}
+.tw{overflow-x:auto;background:var(--cd);border:1px solid var(--ln);border-radius:8px;margin-bottom:16px}
+table{border-collapse:collapse;width:100%;min-width:560px}th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--ln);white-space:nowrap}
+th{font-weight:500;color:var(--mu);font-size:12px}tr:last-child td{border:0}
+.b{padding:2px 8px;border-radius:10px;font-size:12px;font-weight:500}
+.paid{color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}.partial,.unpaid{color:var(--wa);background:color-mix(in srgb,var(--wa) 14%,transparent)}.overdue{color:var(--er);background:color-mix(in srgb,var(--er) 14%,transparent)}
+.kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px}
+.k b{display:block;font-size:24px;font-weight:600;margin-top:4px}.k.er b{color:var(--er)}.k.ok b{color:var(--ok)}
+.ch{display:flex;gap:12px;align-items:flex-end;height:170px;margin:10px 0 16px}.col{flex:1;text-align:center}
+.bars{height:140px;display:flex;gap:4px;align-items:flex-end;justify-content:center}.bars i{width:40%;max-width:28px;border-radius:3px 3px 0 0;min-height:2px}
+.bars .i{background:var(--ac)}.bars .e{background:var(--wa)}.col small{color:var(--mu)}
+.fl{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-bottom:16px}
+label{display:flex;flex-direction:column;gap:4px;color:var(--mu);font-size:12px;margin-bottom:10px}
+input,select{font:inherit;padding:8px 10px;border:1px solid var(--ln);border-radius:6px;background:var(--bg);color:var(--tx)}
+.ov{position:fixed;inset:0;background:#0009;display:grid;place-items:center;padding:16px;z-index:9}.mo{width:min(420px,100%);max-height:90vh;overflow:auto}
+.mo h2{margin-bottom:12px}.ac{display:flex;gap:8px;justify-content:flex-end}
+.lw{min-height:100vh;display:grid;place-items:center;padding:16px}.lc{width:min(380px,100%);display:flex;flex-direction:column}.lc h1{font-size:30px}.lc .lang{margin:14px 0}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:8px 14px;border-radius:6px;opacity:0;pointer-events:none;transition:opacity .2s}#toast.on{opacity:1}
+@media(max-width:760px){.app{grid-template-columns:1fr}aside{flex-direction:row;overflow-x:auto;align-items:center}aside .lg,aside .us{display:none}aside button{white-space:nowrap}main{padding:14px}}
+@media print{aside,.lang,.fl,button{display:none!important}.app{display:block}}
+</style></head><body><div id="app"></div><div id="md"></div><div id="toast"></div>
+<script>
+const K={dash:['Pulpit','Dashboard','Дашборд'],clients:['Klienci','Clients','Клиенты'],invoices:['Faktury','Invoices','Счета'],payments:['Płatności','Payments','Платежи'],tx:['Przychody i koszty','Income & expenses','Доходы и расходы'],debts:['Zaległości','Receivables','Задолженность'],reports:['Raporty','Reports','Отчёты'],contracts:['Umowy','Contracts','Договоры'],ledger:['Księgowość','Accounting','Бухгалтерия'],
+sub:['System finansowo-księgowy dla firm w Polsce (PLN)','Finance & accounting CRM for businesses in Poland (PLN)','Финансово-учётная CRM для компаний в Польше (PLN)'],signin:['Zaloguj się','Sign in','Войти'],user:['Użytkownik','User','Пользователь'],pass:['Hasło','Password','Пароль'],
+hint:['Demo: admin, ksiegowa, manager. Hasło = login.','Demo: admin, ksiegowa, manager. Password = username.','Демо: admin, ksiegowa, manager. Пароль = логин.'],bad:['Błędne dane logowania','Wrong credentials','Неверный логин или пароль'],logout:['Wyloguj','Log out','Выйти'],
+add:['Dodaj','Add','Добавить'],edit:['Edytuj','Edit','Изменить'],del:['Usuń','Delete','Удалить'],save:['Zapisz','Save','Сохранить'],cancel:['Anuluj','Cancel','Отмена'],reset:['Przywróć dane demo','Reset demo data','Сбросить демо-данные'],
+name:['Nazwa','Name','Название'],nip:['NIP','Tax ID (NIP)','NIP'],email:['E-mail','E-mail','E-mail'],city:['Miasto','City','Город'],no:['Numer','Number','Номер'],client:['Klient','Client','Клиент'],date:['Data','Date','Дата'],due:['Termin płatności','Due date','Срок оплаты'],
+net:['Netto','Net','Нетто'],gross:['Brutto (VAT 23%)','Gross (VAT 23%)','Брутто (НДС 23%)'],paid:['Zapłacono','Paid','Оплачено'],left:['Pozostało','Remaining','Остаток'],status:['Status','Status','Статус'],amount:['Kwota','Amount','Сумма'],type:['Typ','Type','Тип'],
+inc:['Przychód','Income','Доход'],exp:['Koszt','Expense','Расход'],desc:['Opis','Description','Описание'],profit:['Zysk','Profit','Прибыль'],incs:['Przychody (netto)','Income (net)','Доходы (нетто)'],exps:['Koszty','Expenses','Расходы'],recv:['Należności','Outstanding','Дебиторка'],
+from:['Od','From','С'],to:['Do','To','По'],print:['Drukuj','Print','Печать'],value:['Wartość umowy','Contract value','Сумма договора'],dr:['Wn (debet)','Dr (debit)','Дебет'],cr:['Ma (kredyt)','Cr (credit)','Кредит'],doc:['Dokument','Document','Документ'],
+pay:['Wpłać','Pay','Оплатить'],late:['Dni po terminie','Days overdue','Дней просрочки'],invoice:['Faktura','Invoice','Счёт'],st_paid:['Opłacona','Paid','Оплачен'],st_partial:['Częściowo','Partial','Частично'],st_unpaid:['Nieopłacona','Unpaid','Не оплачен'],st_overdue:['Po terminie','Overdue','Просрочен'],
+r_a:['Administrator','Administrator','Администратор'],r_c:['Księgowa','Accountant','Бухгалтер'],r_m:['Opiekun klienta','Account manager','Менеджер'],
+a130:['Rachunek bankowy','Bank account','Расчётный счёт'],a201:['Rozrachunki z odbiorcami','Receivables from customers','Расчёты с покупателями'],a222:['VAT należny','Output VAT','НДС начисленный'],a402:['Usługi obce','External services','Внешние услуги'],a700:['Przychody ze sprzedaży','Sales revenue','Выручка от продаж'],
+acc:['Konto','Account','Счёт'],tot:['Razem','Total','Итого'],bal:['Zestawienie obrotów i sald','Trial balance','Оборотно-сальдовая ведомость'],issued:['Wystawione faktury (brutto)','Invoiced (gross)','Выставлено счетов (брутто)'],recvd:['Wpływy z płatności','Payments received','Получено платежей'],
+none:['Brak danych','No data','Нет данных'],blocked:['Klient ma faktury lub umowy','Client has invoices or contracts','У клиента есть счета или договоры'],
+mag:['Magazyn','Warehouse','Склад'],prod:['Materiały','Materials','Материалы'],recv_m:['Przyjęcie materiałów','Goods receipt','Поступление материалов'],issue_m:['Wydanie materiałów','Goods issue','Выдача материалов'],hist:['Historia magazynowa','Stock history','История склада'],
+mat:['Materiał','Material','Материал'],mprice:['Cena zakupu (zł/szt.)','Purchase price (PLN/unit)','Цена закупки (zł/шт.)'],uprice:['Cena jedn.','Unit price','Цена за ед.'],qty:['Ilość','Quantity','Количество'],mval:['Wartość','Value','Стоимость'],
+stockv:['Wartość magazynu','Stock value','Стоимость склада'],contract:['Umowa','Contract','Договор'],mv_in:['Przyjęcie','Receipt','Поступление'],mv_out:['Wydanie','Issue','Выдача'],mrep:['Magazyn w okresie','Warehouse in period','Склад за период'],
+nostock:['Za mało materiału na magazynie','Not enough stock','Недостаточно материала на складе'],blockedm:['Są powiązane operacje magazynowe','Linked stock operations exist','Есть связанные складские операции'],a310:['Materiały','Materials','Материалы']};
+const LN=['pl','en','ru'],LC=['pl-PL','en-GB','ru-RU'],US={admin:{p:'admin',r:'a'},ksiegowa:{p:'ksiegowa',r:'c'},manager:{p:'manager',r:'m'}};
+const NAV=[['dash','dash','acm'],['cl','clients','acm'],['inv','invoices','acm'],['pay','payments','ac'],['tx','tx','ac'],['debt','debts','acm'],['rep','reports','ac'],['ct','contracts','am'],['mag','mag','acm'],['led','ledger','ac']];
+const TT={cl:'clients',inv:'invoice',pay:'payments',tx:'tx',ct:'contracts',mat:'prod','in':'recv_m',out:'issue_m'};
+let L=0,U=null,pg='dash',S,R={};
+const $=s=>document.querySelector(s),t=k=>K[k]?K[k][L]:k,p2=n=>String(n).padStart(2,'0');
+const ymd=d=>d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate()),today=()=>ymd(new Date()),add=(d,n)=>{const x=new Date(d+'T12:00:00');x.setDate(x.getDate()+n);return ymd(x)};
+const r2=n=>Math.round(n*100)/100,sum=a=>r2(a.reduce((x,y)=>x+y,0)),fm=n=>new Intl.NumberFormat(LC[L],{style:'currency',currency:'PLN'}).format(n),fd=d=>d.split('-').reverse().join('.');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const gross=i=>r2(i.net*1.23),paidOf=i=>sum(S.pay.filter(p=>p.inv==i.id).map(p=>p.amt)),left=i=>r2(gross(i)-paidOf(i));
+const stOf=i=>{const p=paidOf(i);return p>=gross(i)?'paid':i.due<today()?'overdue':p>0?'partial':'unpaid'};
+const cn=id=>(S.cl.find(c=>c.id==id)||{name:'—'}).name,nid=a=>a.reduce((m,x)=>Math.max(m,x.id),0)+1;
+function seed(){const d=today(),a=add;return{cl:[{id:1,name:'Nowak Logistics Sp. z o.o.',nip:'5250000011',email:'biuro@nowak-log.example',city:'Warszawa'},{id:2,name:'Kowalski Consulting',nip:'6760000022',email:'kontakt@kowalski.example',city:'Kraków'},{id:3,name:'Baltic Trade S.A.',nip:'5840000033',email:'info@baltic.example',city:'Gdańsk'},{id:4,name:'Zielona Energia Sp. z o.o.',nip:'8960000044',email:'ok@zielona.example',city:'Wrocław'}],
+inv:[{id:1,no:'FV/2026/09/001',cl:1,date:a(d,-45),due:a(d,-31),net:12000},{id:2,no:'FV/2026/09/002',cl:2,date:a(d,-30),due:a(d,-16),net:8500},{id:3,no:'FV/2026/10/001',cl:3,date:a(d,-20),due:a(d,-6),net:4200},{id:4,no:'FV/2026/10/002',cl:4,date:a(d,-5),due:a(d,9),net:15000},{id:5,no:'FV/2026/10/003',cl:1,date:a(d,-2),due:a(d,12),net:3000}],
+pay:[{id:1,inv:1,date:a(d,-35),amt:14760},{id:2,inv:2,date:a(d,-10),amt:5000}],
+tx:[{id:1,date:a(d,-40),type:'e',desc:'Czynsz biura / Office rent',amt:3500},{id:2,date:a(d,-25),type:'e',desc:'Hosting, software',amt:890},{id:3,date:a(d,-12),type:'i',desc:'Usługa jednorazowa / One-off service',amt:2000},{id:4,date:a(d,-8),type:'e',desc:'Marketing',amt:1250}],
+ct:[{id:1,no:'UM/2026/001',cl:1,date:a(d,-90),val:60000},{id:2,no:'UM/2026/002',cl:4,date:a(d,-20),val:90000}]}}
+try{S=JSON.parse(localStorage.getItem('fincrm1'))}catch(e){}if(!S)S=seed();if(!S.mat)demoMag();
+const save=()=>{try{localStorage.setItem('fincrm1',JSON.stringify(S))}catch(e){}};
+function tot(f,to){const ok=d=>(!f||d>=f)&&(!to||d<=to),I=S.inv.filter(i=>ok(i.date)),X=S.tx.filter(x=>ok(x.date)),P=S.pay.filter(p=>ok(p.date));
+const inc=sum(I.map(i=>i.net).concat(X.filter(x=>x.type=='i').map(x=>x.amt))),exp=sum(X.filter(x=>x.type=='e').map(x=>x.amt));return{I,X,P,inc,exp,pr:r2(inc-exp),iss:sum(I.map(gross)),rec:sum(P.map(p=>p.amt))}}
+const tb=(h,r)=>`<div class=tw><table><thead><tr>${h.map(x=>`<th>${t(x)}</th>`).join('')}</tr></thead><tbody>${r.length?r.map(x=>`<tr>${x.map(c=>`<td>${c}</td>`).join('')}</tr>`).join(''):`<tr><td colspan=${h.length} class=mu>${t('none')}</td></tr>`}</tbody></table></div>`;
+const bd=s=>`<span class="b ${s}">${t('st_'+s)}</span>`,kp=(l,v,c='')=>`<div class="card k ${c}"><span class=mu>${l}</span><b>${v}</b></div>`;
+const bar=(k,b='')=>`<div class=bh><h2>${t(k)}</h2>${b}</div>`,addb=e=>`<button class=btn data-a=form data-e=${e}>+ ${t('add')}</button>`;
+const act=(e,id)=>`<button class=lk data-a=form data-e=${e} data-id=${id}>${t('edit')}</button>`+(U.r=='a'?`<button class="lk d" data-a=del data-e=${e} data-id=${id}>${t('del')}</button>`:'');
+const P={
+dash(){const T=tot(),ms=[...Array(6)].map((_,k)=>{const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-5+k);return d.getFullYear()+'-'+p2(d.getMonth()+1)}),D=ms.map(m=>tot(m+'-01',m+'-31')),mx=Math.max(1,...D.map(x=>Math.max(x.inc,x.exp)));
+return bar('dash')+`<div class=kp>${kp(t('incs'),fm(T.inc))}${kp(t('exps'),fm(T.exp))}${kp(t('profit'),fm(T.pr),T.pr<0?'er':'ok')}${kp(t('recv'),fm(sum(S.inv.map(left))))}${kp(t('stockv'),fm(stv()))}</div><div class=card><b>${t('incs')} / ${t('exps')}</b><div class=ch>${ms.map((m,k)=>`<div class=col><div class=bars><i class=i style="height:${D[k].inc/mx*100}%"></i><i class=e style="height:${D[k].exp/mx*100}%"></i></div><small>${m.slice(5)}/${m.slice(2,4)}</small></div>`).join('')}</div></div>`},
+cl(){return bar('clients',addb('cl'))+tb(['name','nip','email','city','invoices','recv',''],S.cl.map(c=>{const I=S.inv.filter(i=>i.cl==c.id);return[esc(c.name),c.nip,esc(c.email),esc(c.city),I.length,fm(sum(I.map(left))),act('cl',c.id)]}))},
+inv(){return bar('invoices',addb('inv'))+tb(['no','client','date','due','net','gross','paid','status',''],[...S.inv].sort((a,b)=>b.date<a.date?-1:1).map(i=>[i.no,esc(cn(i.cl)),fd(i.date),fd(i.due),fm(i.net),fm(gross(i)),fm(paidOf(i)),bd(stOf(i)),(left(i)>0?`<button class=lk data-a=pay data-id=${i.id}>${t('pay')}</button>`:'')+act('inv',i.id)])) },
+pay(){return bar('payments',addb('pay'))+tb(['date','invoice','client','amount',''],[...S.pay].sort((a,b)=>b.date<a.date?-1:1).map(p=>{const i=S.inv.find(x=>x.id==p.inv)||{no:'—',cl:0};return[fd(p.date),i.no,esc(cn(i.cl)),fm(p.amt),act('pay',p.id)]}))},
+tx(){return bar('tx',addb('tx'))+tb(['date','type','desc','amount',''],[...S.tx].sort((a,b)=>b.date<a.date?-1:1).map(x=>[fd(x.date),x.type=='i'?`<span class="b paid">${t('inc')}</span>`:`<span class="b overdue">${t('exp')}</span>`,esc(x.desc),(x.type=='i'?'+':'−')+fm(x.amt),act('tx',x.id)]))},
+debt(){const Ls=S.inv.filter(i=>stOf(i)!='paid').sort((a,b)=>a.due<b.due?-1:1),od=Ls.filter(i=>stOf(i)=='overdue');
+return bar('debts')+`<div class=kp>${kp(t('recv'),fm(sum(Ls.map(left))))}${kp(t('st_overdue'),fm(sum(od.map(left))),'er')}</div>`+tb(['no','client','due','late','left','status'],Ls.map(i=>[i.no,esc(cn(i.cl)),fd(i.due),Math.max(0,Math.round((new Date(today())-new Date(i.due))/864e5)),fm(left(i)),bd(stOf(i))]))},
+rep(){const T=tot(R.f,R.t);return bar('reports')+`<div class="card fl"><label>${t('from')}<input type=date id=rf value="${R.f}"></label><label>${t('to')}<input type=date id=rt value="${R.t}"></label><button class=btn data-a=print>${t('print')}</button></div>`+
+tb(['desc','amount'],[[t('issued'),fm(T.iss)],[t('recvd'),fm(T.rec)],[t('incs'),fm(T.inc)],[t('exps'),fm(T.exp)],[`<b>${t('profit')}</b>`,`<b>${fm(T.pr)}</b>`]])+
+tb(['no','client','date','gross','status'],T.I.map(i=>[i.no,esc(cn(i.cl)),fd(i.date),fm(gross(i)),bd(stOf(i))]))+tb(['date','type','desc','amount'],T.X.map(x=>[fd(x.date),t(x.type=='i'?'inc':'exp'),esc(x.desc),fm(x.amt)]))},
+ct(){return bar('contracts',addb('ct'))+tb(['no','client','date','value',''],S.ct.map(c=>[c.no,esc(cn(c.cl)),fd(c.date),fm(c.val),act('ct',c.id)]))},
+led(){const J=[];S.inv.forEach(i=>{J.push([i.date,i.no,'201','700',i.net]);J.push([i.date,i.no,'201','222',r2(gross(i)-i.net)])});
+S.pay.forEach(p=>{const i=S.inv.find(x=>x.id==p.inv);J.push([p.date,(i?i.no:'')+' / '+t('payments'),'130','201',p.amt])});S.tx.forEach(x=>J.push(x.type=='i'?[x.date,x.desc,'130','700',x.amt]:[x.date,x.desc,x.mat?'310':'402','130',x.amt]));J.sort((a,b)=>a[0]<b[0]?-1:1);
+const an=c=>c+' '+t('a'+c),ac=['130','201','222','310','402','700'],dt=c=>sum(J.filter(j=>j[2]==c).map(j=>j[4])),ct=c=>sum(J.filter(j=>j[3]==c).map(j=>j[4]));
+return bar('ledger')+tb(['date','doc','dr','cr','amount'],J.map(j=>[fd(j[0]),esc(j[1]),an(j[2]),an(j[3]),fm(j[4])]))+`<h2 class=bh>${t('bal')}</h2>`+tb(['acc','dr','cr'],ac.map(c=>[an(c),fm(dt(c)),fm(ct(c))]).concat([[`<b>${t('tot')}</b>`,`<b>${fm(sum(J.map(j=>j[4])))}</b>`,`<b>${fm(sum(J.map(j=>j[4])))}</b>`]]))}};
+const LB=()=>`<div class=lang>${LN.map((n,i)=>`<button data-a=lang data-l=${i} class="${i==L?'on':''}">${n.toUpperCase()}</button>`).join('')}</div>`;
+function render(){const a=$('#app');
+if(!U){a.innerHTML=`<div class=lw><form class="card lc" id=lf><h1>FinCRM</h1><p class=mu>${t('sub')}</p>${LB()}<label>${t('user')}<input name=u value=admin required></label><label>${t('pass')}<input name=p type=password required></label><button class=btn>${t('signin')}</button><p class=mu>${t('hint')}</p></form></div>`;return}
+a.innerHTML=`<div class=app><aside><div class=lg>Fin<b>CRM</b></div>${NAV.filter(n=>n[2].includes(U.r)).map(n=>`<button data-a=nav data-p=${n[0]} class="${n[0]==pg?'on':''}">${t(n[1])}</button>`).join('')}<div class=us>${U.n} · ${t('r_'+U.r)}<br><button data-a=logout>${t('logout')}</button>${U.r=='a'?`<br><button data-a=reset>${t('reset')}</button>`:''}</div></aside><main><header><h1>${t(NAV.find(n=>n[0]==pg)[1])}</h1>${LB()}</header>${P[pg]()}</main></div>`}
+const FD={cl:()=>[['name','text','name'],['nip','text','nip'],['email','text','email'],['city','text','city']],
+inv:()=>[['cl','select','client',S.cl.map(c=>[c.id,c.name])],['date','date','date'],['due','date','due'],['net','number','net']],
+pay:()=>[['inv','select','invoice',S.inv.filter(i=>stOf(i)!='paid').map(i=>[i.id,i.no+' · '+fm(left(i))])],['date','date','date'],['amt','number','amount']],
+tx:()=>[['type','select','type',[['i',t('inc')],['e',t('exp')]]],['date','date','date'],['desc','text','desc'],['amt','number','amount']],
+ct:()=>[['no','text','no'],['cl','select','client',S.cl.map(c=>[c.id,c.name])],['date','date','date'],['val','number','value']]};
+let M=null;
+function openForm(en,id,pre){const o=id?S[en].find(x=>x.id==id):Object.assign({date:today(),due:add(today(),14),type:'e'},pre||{});M={en,id};
+$('#md').innerHTML=`<div class=ov><form id=mf class="card mo"><h2>${t(id?'edit':'add')}: ${t(TT[en])}</h2>${FD[en]().map(([k,ty,lb,op])=>`<label>${t(lb)}${ty=='select'?`<select name=${k}>${op.map(([v,l])=>`<option value="${v}"${v==o[k]?' selected':''}>${esc(l)}</option>`).join('')}</select>`:`<input name=${k} type=${ty} value="${esc(o[k]??'')}" ${ty=='number'?'step=0.01 min=0.01':''} required>`}</label>`).join('')}<div class=ac><button type=button class=btn2 data-a=close>${t('cancel')}</button><button class=btn>${t('save')}</button></div></form></div>`}
+function saveForm(f){const v=Object.fromEntries(new FormData(f)),{en,id}=M;['cl','inv'].forEach(k=>{if(v[k]!==undefined)v[k]=+v[k]});['net','amt','val'].forEach(k=>{if(v[k]!==undefined)v[k]=parseFloat(v[k])});
+if(en=='mat'||en=='in'||en=='out')return saveMg(v,en,id);if(id)Object.assign(S[en].find(x=>x.id==id),v);else{if(en=='inv'){const ym=v.date.slice(0,7);v.no=`FV/${ym.slice(0,4)}/${ym.slice(5)}/${p2(S.inv.filter(i=>i.date.startsWith(ym)).length+1).padStart(3,'0')}`}S[en].push({id:nid(S[en]),...v})}
+save();M=null;$('#md').innerHTML='';render()}
+function toast(m){const e=$('#toast');e.textContent=m;e.className='on';setTimeout(()=>e.className='',2200)}
+const A={nav:(i,e,b)=>{pg=b.dataset.p;render()},lang:(i,e,b)=>{L=+b.dataset.l;document.documentElement.lang=LN[L];$('#md').innerHTML='';render()},form:(id,en)=>openForm(en,id),
+pay:id=>{const i=S.inv.find(x=>x.id==id);openForm('pay',0,{inv:id,amt:left(i)})},close:()=>{$('#md').innerHTML=''},logout:()=>{U=null;render()},reset:()=>{S=seed();demoMag();save();render()},print:()=>{try{window.print()}catch(e){}},
+del:(id,en)=>{if(S.mv.some(m=>en=='mat'?m.mat==id:en=='cl'?m.cl==id:en=='ct'&&m.ct==id))return toast(t('blockedm'));if(en=='cl'&&(S.inv.some(i=>i.cl==id)||S.ct.some(c=>c.cl==id)))return toast(t('blocked'));if(en=='inv')S.pay=S.pay.filter(p=>p.inv!=id);S[en]=S[en].filter(x=>x.id!=id);save();render()}};
+/* ===== Magazyn ===== */
+function mvAdd(en,mid,date,q,pr,cl,ct){const m=S.mat.find(x=>x.id==mid);q=r2(q);if(!m||!(q>0)||(en=='out'&&q>m.qty))return false;
+const mv={id:nid(S.mv),date,mat:m.id,type:en,qty:q};
+if(en=='in'){pr=r2(pr);m.price=(m.qty*m.price+q*pr)/(m.qty+q);m.qty=r2(m.qty+q);mv.price=pr;mv.tx=nid(S.tx);S.tx.push({id:mv.tx,date,type:'e',mat:m.id,desc:'Magazyn: '+m.name+' × '+q,amt:r2(q*pr)})}
+else{mv.price=m.price;m.qty=r2(m.qty-q);mv.cl=cl;mv.ct=ct||0}
+S.mv.push(mv);return true}
+function saveMg(v,en,id){if(en=='mat'){v.price=parseFloat(v.price);if(id)Object.assign(S.mat.find(x=>x.id==id),v);else S.mat.push({id:nid(S.mat),qty:0,...v})}
+else if(!mvAdd(en,+v.mat,v.date,parseFloat(v.qty),parseFloat(v.price),+v.cl,+v.ct))return toast(t('nostock'));
+save();M=null;$('#md').innerHTML='';render()}
+function demoMag(){const d=today();S.mat=[{id:1,name:'Kabel sieciowy Cat6 (5 m)',price:0,qty:0},{id:2,name:'Toner do drukarki',price:0,qty:0},{id:3,name:'Papier A4 (ryza)',price:0,qty:0}];S.mv=[];
+[['in',1,-28,20,10],['in',2,-26,10,120],['in',3,-24,50,18],['out',1,-20,5,0,1,1],['out',3,-15,10,0,3,0],['out',2,-9,2,0,4,2],['in',3,-6,40,20],['out',2,-4,1,0,2,0]].forEach(o=>mvAdd(o[0],o[1],add(d,o[2]),o[3],o[4],o[5],o[6]))}
+const mn=id=>(S.mat.find(m=>m.id==id)||{name:'—'}).name,stv=()=>sum(S.mat.map(m=>r2(m.qty*m.price))),mvv=ty=>sum(S.mv.filter(m=>m.type==ty).map(m=>r2(m.qty*m.price)));
+let mt='prod';const MT=[['prod','prod'],['in','recv_m'],['out','issue_m'],['hist','hist']];
+FD.mat=()=>[['name','text','name'],['price','number','mprice']];
+FD['in']=()=>[['mat','select','mat',S.mat.map(m=>[m.id,m.name])],['date','date','date'],['qty','number','qty'],['price','number','mprice']];
+FD.out=()=>[['mat','select','mat',S.mat.filter(m=>m.qty>0).map(m=>[m.id,m.name+' · '+m.qty])],['date','date','date'],['qty','number','qty'],['cl','select','client',S.cl.map(c=>[c.id,c.name])],['ct','select','contract',[[0,'—']].concat(S.ct.map(c=>[c.id,c.no+' · '+cn(c.cl)]))]];
+const mc=(m,k)=>({date:fd(m.date),type:`<span class="b ${m.type=='in'?'paid':'partial'}">${t('mv_'+m.type)}</span>`,mat:esc(mn(m.mat)),qty:(m.type=='in'?'+':'−')+m.qty,up:fm(m.price),val:fm(r2(m.qty*m.price)),cl:m.cl?esc(cn(m.cl)):'—',ct:m.ct?esc((S.ct.find(c=>c.id==m.ct)||{no:'—'}).no):'—'}[k]);
+const mtb=(h,ks,ty)=>tb(h,[...S.mv].filter(m=>!ty||m.type==ty).sort((a,b)=>b.date<a.date?-1:b.date>a.date?1:b.id-a.id).map(m=>ks.map(k=>mc(m,k))));
+P.mag=()=>{const tabs=`<div class=lang style="margin-bottom:14px">${MT.map(([k,l])=>`<button data-a=mt data-k=${k} class="${k==mt?'on':''}">${t(l)}</button>`).join('')}</div>`,
+kps=`<div class=kp>${kp(t('stockv'),fm(stv()))}${kp(t('mv_in'),fm(mvv('in')))}${kp(t('mv_out'),fm(mvv('out')))}</div>`;let b;
+if(mt=='prod')b=bar('prod',addb('mat'))+tb(['mat','uprice','qty','mval',''],S.mat.map(m=>[esc(m.name),fm(m.price),m.qty,fm(r2(m.qty*m.price)),`<button class=lk data-a=mg data-k=in data-id=${m.id}>${t('mv_in')}</button>`+(m.qty>0?`<button class=lk data-a=mg data-k=out data-id=${m.id}>${t('mv_out')}</button>`:'')+act('mat',m.id)]));
+else if(mt=='in')b=bar('recv_m',addb('in'))+mtb(['date','mat','qty','uprice','mval'],['date','mat','qty','up','val'],'in');
+else if(mt=='out')b=bar('issue_m',addb('out'))+mtb(['date','mat','qty','uprice','mval','client','contract'],['date','mat','qty','up','val','cl','ct'],'out');
+else b=bar('hist')+mtb(['date','type','mat','qty','mval','client','contract'],['date','type','mat','qty','val','cl','ct']);
+return kps+tabs+b};
+const rep0=P.rep;P.rep=()=>{const a=S.mv.filter(m=>(!R.f||m.date>=R.f)&&(!R.t||m.date<=R.t)),v=ty=>sum(a.filter(m=>m.type==ty).map(m=>r2(m.qty*m.price)));
+return rep0()+bar('mrep')+tb(['desc','amount'],[[t('mv_in'),fm(v('in'))],[t('mv_out'),fm(v('out'))],[t('stockv'),fm(stv())]])+tb(['date','type','mat','qty','mval','client'],a.map(m=>['date','type','mat','qty','val','cl'].map(k=>mc(m,k))))};
+A.mt=(i,e,b)=>{mt=b.dataset.k;render()};A.mg=(id,e,b)=>openForm(b.dataset.k,0,{mat:id,price:(S.mat.find(m=>m.id==id)||{}).price});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b)A[b.dataset.a](+b.dataset.id||0,b.dataset.e,b)});
+document.addEventListener('change',e=>{if(e.target.id=='rf'||e.target.id=='rt'){R[e.target.id=='rf'?'f':'t']=e.target.value;render()}});
+document.addEventListener('submit',e=>{e.preventDefault();const f=e.target;if(f.id=='mf')return saveForm(f);
+const v=Object.fromEntries(new FormData(f)),x=US[v.u.trim().toLowerCase()];if(x&&x.p==v.p){U={n:v.u.trim().toLowerCase(),r:x.r};pg='dash';R={f:add(today(),-60),t:today()};render()}else toast(t('bad'))});
+render();
+</script></body></html>
